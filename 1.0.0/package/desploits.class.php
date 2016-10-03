@@ -11,7 +11,7 @@ class Desploit
 	}
 	function ConfigWP(){
 		$Desploit = array(
-			'grabuser' => '1'
+			'grabuser' => '50'
 		);
 		return $Desploit;
 	}
