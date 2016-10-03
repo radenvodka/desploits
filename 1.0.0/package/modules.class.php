@@ -2,7 +2,7 @@
 class Modules
 {
 	public function msg($msg){
-		echo "[packetploit] ".$msg."\r\n";
+		echo "[desploits] ".$msg."\r\n";
 	}
 	public function ngesave($name,$data){
 		$name = $name."-".date('dFY').".txt";
@@ -50,6 +50,7 @@ class Modules
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (iPhone; U; CPU iPhone OS 8_3_3 like Mac OS X; en-SG) AppleWebKit/537.25 (KHTML, like Gecko) Version/7.0 Mobile/8C3 Safari/6533.18.1");
         curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd().'temp/'."cookies.txt");
         curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd().'temp/'."cookies.txt");
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
         curl_setopt($ch, CURLOPT_COOKIESESSION, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,0); 
     	curl_setopt($ch, CURLOPT_TIMEOUT, 20);
