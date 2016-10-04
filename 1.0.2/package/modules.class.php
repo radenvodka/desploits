@@ -40,8 +40,8 @@ class Modules
         }
         return $xx;
 	}
-	public function ngecurl($url , $post=null){
-		$ch = curl_init($url);
+    public function ngecurl($url , $post=null , $header=null){
+        $ch = curl_init($url);
         if($post != null) {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -51,15 +51,18 @@ class Modules
         curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd().'temp/'."cookies.txt");
         curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd().'temp/'."cookies.txt");
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+        if($header != null) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER,$header);
+        }
         curl_setopt($ch, CURLOPT_COOKIESESSION, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,0); 
-    	curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-    	return curl_exec($ch);
+        return curl_exec($ch);
         curl_close($ch);
-	}
+    }
 	public function mod_httpcode($url){
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
@@ -127,8 +130,7 @@ class Modules
         fclose($fp);
     }
     function Debug( $data ){
-        unlink("debug.html");
-        $myfile = fopen("debug.html", "a+") or die("Unable to open file!");
+        $myfile = fopen("debug.html", "w+") or die("Unable to open file!");
         fwrite($myfile, $data);
         fclose($myfile);
     }
