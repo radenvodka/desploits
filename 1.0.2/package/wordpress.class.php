@@ -2,9 +2,10 @@
 class Wordpress extends Modules
 {
 	function check($url,$username,$password){
-		$ref = str_replace("wp-login.php", "wp-admin/", $url);
+		$ref    = str_replace("wp-login.php", "wp-admin/", $url);
+		$Origin = str_replace("wp-login.php", "", $url);
 		$header = array(
-			'Origin: http://docs.tiket.com',
+			'Origin: '.$Origin,
 			'Content-Type:application/x-www-form-urlencoded'
 		);
 		$result = $this->ngecurl($url , "log=".$username."&pwd=".$password , $header);
