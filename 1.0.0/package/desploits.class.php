@@ -52,6 +52,7 @@ class Desploit
 	}
 	function update(){
 		$desploits 	= new Modules;
+		$desploits->msg("[Update] Pleas wait... check for updates");
 		$version  	= json_decode($desploits->ngecurl("http://ekasyahwan.github.io/version/desploits.json"),true);
 		$ver 		= $version[release][version];
 		if( $this->Config()['ver'] < $ver ){
