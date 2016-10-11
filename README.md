@@ -1,18 +1,13 @@
 # Desploits
 Desploits - Web Application Vulnerability Scanners (WVS)
 
-**Eka Syahwan** said (Indonesia):
-> own risk, I will not be responsible for the user of this tool. :stuck_out_tongue:  and sorry for bad english :laughing:
-
-#How to Use
-Use `php desploits.php --help` for help.
-
-#Features
-+ Admin Page Finder
-+ wpbrute
+#How to Start
+Use `php desploits.php --help` for help. 
+> install `apt-get update && apt-get install curl` for Linux
+> for windows , pleas Setting [environment variable] (https://www.google.co.id/search?q=Add+PHP+to+Path+Variable+in+Windows) and install xampp php 5.5.35
 
 #Thank's To
-:+1: special for x'1n73ct , I want to continue an archive of the past that I have made along x'1n73ct . (assassin tools)
++ x'1n73ct
 + kefiex404
 
 # Issues 
