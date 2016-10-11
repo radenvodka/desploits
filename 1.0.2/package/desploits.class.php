@@ -3,6 +3,7 @@ error_reporting(0);
 require_once("package/modules.class.php");
 require_once("package/fadmin.class.php");
 require_once("package/wordpress.class.php");
+require_once("package/md5.class.php");
 class Desploit
 {
 	function Config(){
@@ -30,7 +31,8 @@ class Desploit
         $command = [
         	"[Set Target] --url={url} / --url-list={list}\r\n",
             "[Admin Page Finder] {set target} --fadmin=[asp|php|brf|cfm|cgi|js]",
-            "[wpbrute-wordpress] {set target} --wpbrute --setuser={admin|auto} --passlist={optional}",
+            "[Wpbrute Wordpress] {set target} --wpbrute --setuser={admin|auto} --passlist={optional}",
+            "[Md5] --md5={key|single md5 generate}\r\n         --md5={md5 hash|md5 hash.txt}",
         ];
         foreach ($command as $key) {
         	echo "[!]".$key."\r\n";
@@ -105,6 +107,7 @@ class Desploit
 $desploit 	= new Desploit;
 $fadmin 	= new Fadmin;
 $wordpress	= new Wordpress;
+$md5		= new Md5;
 /** call class package **/
 $desploit->Covers();
 $command  = $desploit->arguments($argv);

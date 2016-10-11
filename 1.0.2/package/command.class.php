@@ -18,3 +18,6 @@ if($command[input][0] === $base && $command[input][1] === "--wpbrute" && $comman
 if($command[input][0] === $base && $command[input][1] === "--wpbrute" && $command["url-list"] && $command[setuser] && $command[passlist]){
 	$wordpress->mass($command["url-list"],$command[setuser],$command[passlist]);
 }
+if($command[input][0] === $base && $command[md5]){
+	$md5->md5dec($command[md5]);
+}
