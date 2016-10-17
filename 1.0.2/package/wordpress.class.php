@@ -10,7 +10,6 @@ class Wordpress extends Modules
     		"referer: ".$ref
 		);
 		$result = $this->ngecurl($url , "log=".$username."&pwd=".$password , $header);
-		$this->Debug( $result );
 		$re = '/\.php\?action=logout/';
 		preg_match_all($re, $result, $matches);
 		if( $matches[0][0] ){
