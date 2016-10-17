@@ -1,11 +1,19 @@
-# Desploits
+# Welcome to the project desploits
 Desploits - Web Application Vulnerability Scanners (WVS)
 
-#How to Start
-Use `php desploits.php --help` for help. 
-> [LINUX] install `apt-get update && apt-get install curl`
+#Download stable version of desploits
+> wget http://ekasyahwan.github.io/tools/desploits.php (recommend)
+> git clone git://github.com/ekasyahwan/desploits.git (not recommended - use version 1.0.1)
 
-> [WINDOWS] pleas Setting [environment variable] (https://www.google.co.id/search?q=Add+PHP+to+Path+Variable+in+Windows) and install xampp php 5.5.35
+#How to use
+> php desploits.php --help
+
+#Required
+> Install php CLI and php cURL
+
+#Documentation
+> How to install desploits [vidios] (https://github.com/ekasyahwan/desploits)
+-----------------------------------------------------------------------------
 
 #List developer & contribution
 + Eka Syahwan (Developers)
