@@ -88,6 +88,9 @@ class Desploit extends Modules
 				foreach ($file as $key => $files) {
 					$data = $this->ngecurl($version[repository][files].$version[release][version]."/".$files);
 					if($data != ""){
+						if(unlink($files)){
+							$this->msg("[Update] [OK] Removes Files ".$files);
+						}
 						if( file_put_contents($files , $data) ){
 							$this->msg("[Update] [OK] Create files ".$files);
 							if($files == "desploits.php"){
