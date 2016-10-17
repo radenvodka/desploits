@@ -4,11 +4,22 @@ require_once("package/modules.class.php");
 require_once("package/fadmin.class.php");
 require_once("package/wordpress.class.php");
 require_once("package/md5.class.php");
+require_once("package/engine.class.php");
 class Desploit
 {
 	function Config(){
 		$Desploit = array('ver' => '1.0.0');
 		return $Desploit;
+	}
+	function requiredDes(){
+		$desploits 	= new Modules;
+		if(!curl_version()[version] ){
+		 	$desploits->msg("[required] PHP CLI , apt-get install curl\r\n");
+		}
+		$folder = array('db','package','result','temp');
+		foreach ($folder as $key => $genDRI) {
+			mkdir($genDRI);
+		}
 	}
 	function ConfigWP(){
 		$Desploit = array(
@@ -108,7 +119,9 @@ $desploit 	= new Desploit;
 $fadmin 	= new Fadmin;
 $wordpress	= new Wordpress;
 $md5		= new Md5;
+$engine 	= new Engine;
 /** call class package **/
 $desploit->Covers();
+$desploit->requiredDes();
 $command  = $desploit->arguments($argv);
 ?>
