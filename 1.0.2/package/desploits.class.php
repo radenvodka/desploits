@@ -97,7 +97,7 @@ class Desploit extends Modules
 							$this->msg("[Update] [FAIL] Create files ".$files);
 						}
 					}else{
-						$this->msg("Pleas Download : http://ekasyahwan.github.io/tools/desploits.php / https://github.com/ekasyahwan/desploits for manual download";
+						$this->msg("Pleas Download : http://ekasyahwan.github.io/tools/desploits.php / https://github.com/ekasyahwan/desploits for manual download");
 						exit();
 					}
 				}
