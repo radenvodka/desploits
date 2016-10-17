@@ -21,3 +21,9 @@ if($command[input][0] === $base && $command[input][1] === "--wpbrute" && $comman
 if($command[input][0] === $base && $command[md5]){
 	$md5->md5dec($command[md5]);
 }
+if($command[input][0] === $base && $command[input][1] === "--scraper" && $command[input][2] === "--patch" && $command[dork]){
+	$engine->scraper($command[dork],true);
+}
+if($command[input][0] === $base && $command[input][1] === "--scraper" && $command[input][2] === "--no-patch" && $command[dork]){
+	$engine->scraper($command[dork],false);
+}
