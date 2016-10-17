@@ -5,10 +5,10 @@ require_once("package/fadmin.class.php");
 require_once("package/wordpress.class.php");
 require_once("package/md5.class.php");
 require_once("package/engine.class.php");
-class Desploit
+class Desploit extends Modules
 {
 	function Config(){
-		$Desploit = array('ver' => '1.0.0');
+		$Desploit = array('ver' => '1.0.2');
 		return $Desploit;
 	}
 	function requiredDes(){
@@ -43,11 +43,12 @@ class Desploit
         	"[Set Target] --url={url} / --url-list={list}\r\n",
             "[Admin Page Finder] {set target} --fadmin=[asp|php|brf|cfm|cgi|js]",
             "[Wpbrute Wordpress] {set target} --wpbrute --setuser={admin|auto} --passlist={optional}",
-            "[Md5] --md5={key|single md5 generate}\r\n         --md5={md5 hash|md5 hash.txt}",
+            "[Md5] --md5={key|single md5 generate} / --md5={md5 hash|md5 hash.txt}",
+            "[Scraper] --scraper --dork={dork/file.txt} --patch / --no-patch",
         ];
         foreach ($command as $key) {
         	echo "[!]".$key."\r\n";
-        }	
+        }
         echo "\r\n[!][i] all result in directory 'result'\r\n";
     }
 	function arguments($argv) { 
@@ -64,54 +65,46 @@ class Desploit
 	  	return $_ARG; 
 	}
 	function update(){
-		$desploits 	= new Modules;
-		$desploits->msg("[Update] Pleas wait... check for updates");
-		$version  	= json_decode($desploits->ngecurl("http://ekasyahwan.github.io/version/desploits.json"),true);
-		$ver 		= $version[release][version];
-		if( $this->Config()['ver'] < $ver ){
-			$repofile   = $version[repository][files].$ver."/";
-			$desploits->msg("[Update] updates are available");
-			$desploits->msg("[Update] Last test   : ".$this->Config()['ver']);
-			$desploits->msg("[Update] New version : ".$version[release][version]);
-			$desploits->msg("[Update] + Create directory");
-			foreach ($version[required][dir] as $key => $value) {
-				if( mkdir($value) ){
-					$desploits->msg("[Update] > {success} ".$value." Success");
+		$myVer = $this->Config()[ver];
+		$this->msg("[Update] Pleas wait ... check for updates");
+		$version = json_decode($this->ngecurl("http://ekasyahwan.github.io/version/desploits.json"),true);
+		if($myVer < $version[release][version]){
+			$this->msg("[Update] Old Version  : ".$myVer);
+			$this->msg("[Update] Last Version : ".$version[release][version]." (Release : ".$version[release][date].")");
+			$this->msg("[Update] Get New Version ... pleas wait");
+			sleep(3);
+			foreach ($version[required][dir] as $mdkirs) {
+				if(is_dir($mdkirs)){
+					$this->msg("[Update] [OK] Create directory ".$mdkirs);
 				}else{
-					$desploits->msg("[Update] > {failed}  ".$value." Failed");
+					if(mkdir($mdkirs, 0777)){
+						$this->msg("[Update] [OK] Create directory ".$mdkirs);
+					}else{
+						$this->msg("[Update] [FAIL] Create directory ".$mdkirs);
+					}
 				}
 			}
-			$desploits->msg("[Update] + Get & install new files");
-			foreach ($version[required][file] as $key => $value) {
-				$getFile = $desploits->ngecurl($repofile.$value['name']);
-				$getName = $value['name'].".update";
-				if($getFile != ""){
-					if(file_put_contents($getName , $getFile)){
-						$desploits->msg("[Update] >>> {Download} ".$value['name']." | Success");
-						if( file_put_contents($value['name'], file_get_contents($getName))){
-								$desploits->msg("[Update]   ^ {Installs}  ".$value['name']." | Success");
-								unlink($getName);
-							}else{
-								$desploits->msg("[Update] MD5 File corrupt , pleas manual download https://github.com/ekasyahwan/desploits.");
-								exit();
+			foreach ($version[required][file] as $file) {
+				foreach ($file as $key => $files) {
+					$data = $this->ngecurl($version[repository][files].$version[release][version]."/".$files);
+					if($data != ""){
+						if( file_put_contents($files , $data) ){
+							$this->msg("[Update] [OK] Create files ".$files);
+							if($files == "desploits.php"){
+								chmod($files,755);
+							}
+						}else{
+							$this->msg("[Update] [FAIL] Create files ".$files);
 						}
-					}
-				}else{
-					$desploits->msg("[Update] MD5 File corrupt , pleas manual download https://github.com/ekasyahwan/desploits.");
-					exit();
-				}
-			}
-			if(count($version[required][remove]) != ""){
-			$desploits->msg("[Update] + Remove File");
-				foreach ($version[required][remove] as $key => $value) {
-					if(unlink($value)){
-						$desploits->msg("[Update] > {success} ".$value." Success");
+					}else{
+						$this->msg("Pleas Download : http://ekasyahwan.github.io/tools/desploits.php / https://github.com/ekasyahwan/desploits for manual download";
+						exit();
 					}
 				}
 			}
-			$desploits->msg("[Update] Done !!! please report it to us for the problems in these tools in our github page https://github.com/ekasyahwan/desploits");
+			$this->msg("\r\n--------- thanks for updates Desploits ---------");
 		}else{
-			$desploits->msg("[Update] no updates");
+			$this->msg("no update");
 		}
 	}
 }
