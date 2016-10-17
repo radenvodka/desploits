@@ -8,7 +8,7 @@ class Modules
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             return 'windows';
         } else {
-            return 'linux';
+            return false;
         }
     }
     public function explodeDefault(){
