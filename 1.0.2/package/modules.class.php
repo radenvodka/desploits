@@ -18,6 +18,10 @@ class Modules
             return "\n";
         }
     }
+    public function removespace($data){
+        $str =  preg_replace('/\s+/', '', $data );
+        return $str;
+    }
 	public function ngesave($name,$data){
 		$name = $name."-".date('dFY').".txt";
 		$myfile = fopen($name, "a+") or die("Tidak bisa membuka file!");
@@ -147,5 +151,6 @@ class Modules
         $myfile = fopen("debug.html", "w+") or die("Unable to open file!");
         fwrite($myfile, $data);
         fclose($myfile);
+        exit();
     }
 }
