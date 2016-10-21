@@ -23,14 +23,20 @@ class Modules
         return $str;
     }
 	public function ngesave($name,$data){
-		$name = $name."-".date('dFY').".txt";
-		$myfile = fopen($name, "a+") or die("Tidak bisa membuka file!");
+        $name = $name."-".date('dFY').".txt";
+        $myfile = fopen($name, "a+") or die("Tidak bisa membuka file!");
         fwrite($myfile, $data);
         fclose($myfile);
         return $name;
-	}
+    }
+    public function save($name,$data){
+        $myfile = fopen($name, "a+") or die("Tidak bisa membuka file!");
+        fwrite($myfile, $data);
+        fclose($myfile);
+        return $name;
+    }
     public function readline($pesan){
-        echo $pesan;
+        echo "[desploits] ".$pesan;
         $answer =  rtrim( fgets( STDIN ));
         return $answer;
     }
