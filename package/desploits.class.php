@@ -8,7 +8,7 @@ require_once("package/engine.class.php");
 class Desploit extends Modules
 {
 	function Config(){
-		$Desploit = array('ver' => '1.0.3');
+		$Desploit = array('ver' => '1.0.2','repo' => 'http://ekasyahwan.github.io/version/desploits-update.json');
 		return $Desploit;
 	}
 	function requiredDes(){
@@ -72,52 +72,44 @@ class Desploit extends Modules
 	}
 	function update(){
 		$myVer = $this->Config()[ver];
-		$this->msg("[Update] Pleas wait ... check for updates");
-		$version = json_decode($this->ngecurl("http://ekasyahwan.github.io/version/desploits.json"),true);
+		$version = json_decode($this->ngecurl($this->Config()[repo]),true);
 		if($myVer < $version[release][version]){
 			$this->msg("[Update] Old Version  : ".$myVer);
-			$this->msg("[Update] Last Version : ".$version[release][version]." (Release : ".$version[release][date].")");
-			$this->msg("[Update] Get New Version ... pleas wait");
-			sleep(3);
-			foreach ($version[required][dir] as $mdkirs) {
-				if(is_dir($mdkirs)){
-					$this->msg("[Update] [OK] Create directory ".$mdkirs);
-				}else{
-					if(mkdir($mdkirs, 0777)){
-						$this->msg("[Update] [OK] Create directory ".$mdkirs);
+			$this->msg("[Update] New Version  : ".$version[release][version]);
+			$this->msg("[Update] Codename     : ".$version[release][codename]);
+			if(isset($version[repository][zip])){
+				$zip = "zip";
+			}
+			if(isset($version[repository][zip])){
+				$tar = "tar";
+			}
+			$input = $this->readline("[desploits] [download] [".(isset($zip) ? $zip:"-")."/".(isset($tar) ? $tar:"-")."]  : ");
+			$this->msg("[download] pleas wait... downloading files");
+			if($input === "zip"){
+				if(file_put_contents(pathinfo($version[repository][zip])[basename],$this->ngecurl($version[repository][zip]))){
+					if(file_exists(pathinfo($version[repository][zip])[basename])){
+						$this->msg("[download] Download file success , file name : ".pathinfo($version[repository][zip])[basename]);
 					}else{
-						$this->msg("[Update] [FAIL] Create directory ".$mdkirs);
+						$this->msg("[download] Download file failed , pleas manual dowload : ".$version[repository][github]);
 					}
 				}
-			}
-			foreach ($version[required][file] as $file) {
-				foreach ($file as $key => $files) {
-					$data = $this->ngecurl($version[repository][files].$version[release][version]."/".$files);
-					if($data != ""){
-						if(unlink($files)){
-							$this->msg("[Update] [OK] Removes Files ".$files);
-						}
-						if( file_put_contents($files , $data) ){
-							$this->msg("[Update] [OK] Create files ".$files);
-							if($files == "desploits.php"){
-								chmod($files,755);
-							}
-						}else{
-							$this->msg("[Update] [FAIL] Create files ".$files);
-						}
+			}else if($input === "tar"){
+				if(file_put_contents(pathinfo($version[repository][tar])[basename],$this->ngecurl($version[repository][tar]))){
+					if(file_exists(pathinfo($version[repository][tar])[basename])){
+						$this->msg("[download] Download file success , file name : ".pathinfo($version[repository][tar])[basename]);
 					}else{
-						$this->msg("Pleas Download : http://ekasyahwan.github.io/tools/desploits.php / https://github.com/ekasyahwan/desploits for manual download");
-						exit();
+						$this->msg("[download] Download file failed , pleas manual dowload : ".$version[repository][github]);
 					}
 				}
+			}else{
+				$this->msg("[Update] incorrect command , pleas manual dowload : ".$version[repository][github]);
+				exit();
 			}
-			$this->msg("\r\n--------- thanks for updates Desploits ---------");
-		}else{
-			$this->msg("no update");
 		}
 	}
 }
 $desploit 	= new Desploit;
+$modules 	= new Modules;
 $fadmin 	= new Fadmin;
 $wordpress	= new Wordpress;
 $md5		= new Md5;
@@ -127,3 +119,4 @@ $desploit->Covers();
 $desploit->requiredDes();
 $command  = $desploit->arguments($argv);
 ?>
+
