@@ -1,10 +1,16 @@
 # Welcome to the project desploits
 Desploits - Web Application Vulnerability Scanners (WVS) 
 
+#Download desploits
+| Version | Link | Description |
+| --- | --- | --- |
+| 1.0.0 | [zip/tar.gz] (https://github.com/ekasyahwan/desploits/releases/tag/v1.0.0) | no stable and no recommend |
+| 1.0.2 | [zip/tar.gz] (https://github.com/ekasyahwan/desploits/releases/tag/v1.0.2) | stable|
+| 1.0.3 | zip/tar.gz | comming soon :) |
+
 #How to install and run desploits ?
-1. Download with http://ekasyahwan.github.io/tools/desploits.php , you can use the command `wget http://ekasyahwan.github.io/tools/desploits.php` / `curl http://ekasyahwan.github.io/tools/desploits.php` / `git clone git://github.com/ekasyahwan/desploits.git (no install)`
-2. run the file desploits.php , use command `php desploits.php` and open directory ***desploits***
-3. typing a command --help `php desploits.php --help` to support the use of tools or you can read through the [documentation] (https://github.com/ekasyahwan/desploits/blob/master/Documentation.md)
+1. `git clone git://github.com/ekasyahwan/desploits.git` / download in table [Download Desploits] (https://github.com/ekasyahwan/desploits#download-desploits)
+2. run desploits : `php desploits.php --help`
 
 #Required Desploits
 - The desploits works with php version 5.5.x windows / linux platforms.
