@@ -29,6 +29,11 @@ class Modules
         fclose($myfile);
         return $name;
 	}
+    public function readline($pesan){
+        echo $pesan;
+        $answer =  rtrim( fgets( STDIN ));
+        return $answer;
+    }
 	public function ngeChuk($url){
 		$this->msg("[check] uRL : ".$url);
 		$ch = curl_init();
