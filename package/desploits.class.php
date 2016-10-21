@@ -8,7 +8,7 @@ require_once("package/engine.class.php");
 class Desploit extends Modules
 {
 	function Config(){
-		$Desploit = array('ver' => '1.0.2');
+		$Desploit = array('ver' => '');
 		return $Desploit;
 	}
 	function requiredDes(){
@@ -39,17 +39,23 @@ class Desploit extends Modules
 		echo "  --------------------------------------  \r\n\n";
     }
     function help(){
-        $command = [
-        	"[Set Target] --url={url} / --url-list={list}\r\n",
-            "[Admin Page Finder] {set target} --fadmin=[asp|php|brf|cfm|cgi|js]",
-            "[Wpbrute Wordpress] {set target} --wpbrute --setuser={admin|auto} --passlist={optional}",
-            "[Md5] --md5={key|single md5 generate} / --md5={md5 hash|md5 hash.txt}",
-            "[Scraper] --scraper --dork={dork/file.txt} --patch / --no-patch",
-        ];
-        foreach ($command as $key) {
-        	echo "[!]".$key."\r\n";
-        }
-        echo "\r\n[!][i] all result in directory 'result'\r\n";
+        $label = array(
+        	'1' => 'Set Url : --url=<url> / --url-list=<list file> <tools> <argv> <argv> ...',
+        	'2' => "Tools List    : \r\n"
+        );
+    	$tools = array(
+    		'Fadmin' 	=> '<set url/list> --fadmin=[asp|php|brf|cfm|cgi|js]',
+    		'wpbrute'	=> '<set url/list> --wpbrute --setuser={admin|auto} --passlist={optional}',
+    		'md5dencry' => '--md5={key/hash} / --md5={hash.txt}',
+    		'scraper' 	=> '--scraper --dork={dork/file.txt} --patch / --no-patch'
+    	);
+    	foreach ($label as $key => $value) {
+    		echo $value."\r\n";
+    	}
+    	foreach ($tools as $key => $value) {
+    		echo "<desploits> ".$value."\r\n";
+    	}
+
     }
 	function arguments($argv) { 
 		    $_ARG = array(); 

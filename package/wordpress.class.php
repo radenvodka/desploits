@@ -1,6 +1,7 @@
 <?php
 class Wordpress extends Modules
 {
+	#Wordpress brute force
 	function check($url,$username,$password){
 		$ref    = str_replace("wp-login.php", "wp-admin/", $url);
 		$Origin = str_replace("wp-login.php", "", $url);
@@ -113,5 +114,4 @@ class Wordpress extends Modules
 			$siteshit = $siteshit-1;echo "\r\n";
 		}
 	}
-
 }
