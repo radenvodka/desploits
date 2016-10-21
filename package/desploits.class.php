@@ -8,7 +8,7 @@ require_once("package/engine.class.php");
 class Desploit extends Modules
 {
 	function Config(){
-		$Desploit = array('ver' => '1.0.2','repo' => 'http://ekasyahwan.github.io/version/desploits-update.json');
+		$Desploit = array('ver' => '1.0.3','repo' => 'http://ekasyahwan.github.io/version/desploits-update.json');
 		return $Desploit;
 	}
 	function requiredDes(){
@@ -105,6 +105,8 @@ class Desploit extends Modules
 				$this->msg("[Update] incorrect command , pleas manual dowload : ".$version[repository][github]);
 				exit();
 			}
+		}else{
+			$this->msg("[Update] no updates");
 		}
 	}
 }
