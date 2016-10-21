@@ -3,23 +3,11 @@ error_reporting(0);
 require_once("package/modules.class.php");
 require_once("package/fadmin.class.php");
 require_once("package/wordpress.class.php");
-require_once("package/md5.class.php");
-require_once("package/engine.class.php");
-class Desploit extends Modules
+class Desploit
 {
 	function Config(){
-		$Desploit = array('ver' => '');
+		$Desploit = array('ver' => '1.0.0');
 		return $Desploit;
-	}
-	function requiredDes(){
-		$desploits 	= new Modules;
-		if(!curl_version()[version] ){
-		 	$desploits->msg("[required] PHP CLI , apt-get install curl\r\n");
-		}
-		$folder = array('db','package','result','temp');
-		foreach ($folder as $key => $genDRI) {
-			mkdir($genDRI);
-		}
 	}
 	function ConfigWP(){
 		$Desploit = array(
@@ -39,23 +27,15 @@ class Desploit extends Modules
 		echo "  --------------------------------------  \r\n\n";
     }
     function help(){
-        $label = array(
-        	'1' => 'Set Url : --url=<url> / --url-list=<list file> <tools> <argv> <argv> ...',
-        	'2' => "Tools List    : \r\n"
-        );
-    	$tools = array(
-    		'Fadmin' 	=> '<set url/list> --fadmin=[asp|php|brf|cfm|cgi|js]',
-    		'wpbrute'	=> '<set url/list> --wpbrute --setuser={admin|auto} --passlist={optional}',
-    		'md5dencry' => '--md5={key/hash} / --md5={hash.txt}',
-    		'scraper' 	=> '--scraper --dork={dork/file.txt} --patch / --no-patch'
-    	);
-    	foreach ($label as $key => $value) {
-    		echo $value."\r\n";
-    	}
-    	foreach ($tools as $key => $value) {
-    		echo "<desploits> ".$value."\r\n";
-    	}
-
+        $command = [
+        	"[Set Target] --url={url} / --url-list={list}\r\n",
+            "[Admin Page Finder] {set target} --fadmin=[asp|php|brf|cfm|cgi|js]",
+            "[wpbrute-wordpress] {set target} --wpbrute --setuser={admin|auto} --passlist={optional}",
+        ];
+        foreach ($command as $key) {
+        	echo "[!]".$key."\r\n";
+        }	
+        echo "\r\n[!][i] all result in directory 'result'\r\n";
     }
 	function arguments($argv) { 
 		    $_ARG = array(); 
@@ -71,59 +51,61 @@ class Desploit extends Modules
 	  	return $_ARG; 
 	}
 	function update(){
-		$myVer = $this->Config()[ver];
-		$this->msg("[Update] Pleas wait ... check for updates");
-		$version = json_decode($this->ngecurl("http://ekasyahwan.github.io/version/desploits.json"),true);
-		if($myVer < $version[release][version]){
-			$this->msg("[Update] Old Version  : ".$myVer);
-			$this->msg("[Update] Last Version : ".$version[release][version]." (Release : ".$version[release][date].")");
-			$this->msg("[Update] Get New Version ... pleas wait");
-			sleep(3);
-			foreach ($version[required][dir] as $mdkirs) {
-				if(is_dir($mdkirs)){
-					$this->msg("[Update] [OK] Create directory ".$mdkirs);
+		$desploits 	= new Modules;
+		$desploits->msg("[Update] Pleas wait... check for updates");
+		$version  	= json_decode($desploits->ngecurl("http://ekasyahwan.github.io/version/desploits.json"),true);
+		$ver 		= $version[release][version];
+		if( $this->Config()['ver'] < $ver ){
+			$repofile   = $version[repository][files].$ver."/";
+			$desploits->msg("[Update] updates are available");
+			$desploits->msg("[Update] Last test   : ".$this->Config()['ver']);
+			$desploits->msg("[Update] New version : ".$version[release][version]);
+			$desploits->msg("[Update] + Create directory");
+			foreach ($version[required][dir] as $key => $value) {
+				if( mkdir($value) ){
+					$desploits->msg("[Update] > {success} ".$value." Success");
 				}else{
-					if(mkdir($mdkirs, 0777)){
-						$this->msg("[Update] [OK] Create directory ".$mdkirs);
-					}else{
-						$this->msg("[Update] [FAIL] Create directory ".$mdkirs);
+					$desploits->msg("[Update] > {failed}  ".$value." Failed");
+				}
+			}
+			$desploits->msg("[Update] + Get & install new files");
+			foreach ($version[required][file] as $key => $value) {
+				$getFile = $desploits->ngecurl($repofile.$value['name']);
+				$getName = $value['name'].".update";
+				if($getFile != ""){
+					if(file_put_contents($getName , $getFile)){
+						$desploits->msg("[Update] >>> {Download} ".$value['name']." | Success");
+						if( file_put_contents($value['name'], file_get_contents($getName))){
+								$desploits->msg("[Update]   ^ {Installs}  ".$value['name']." | Success");
+								unlink($getName);
+							}else{
+								$desploits->msg("[Update] MD5 File corrupt , pleas manual download https://github.com/ekasyahwan/desploits.");
+								exit();
+						}
+					}
+				}else{
+					$desploits->msg("[Update] MD5 File corrupt , pleas manual download https://github.com/ekasyahwan/desploits.");
+					exit();
+				}
+			}
+			if(count($version[required][remove]) != ""){
+			$desploits->msg("[Update] + Remove File");
+				foreach ($version[required][remove] as $key => $value) {
+					if(unlink($value)){
+						$desploits->msg("[Update] > {success} ".$value." Success");
 					}
 				}
 			}
-			foreach ($version[required][file] as $file) {
-				foreach ($file as $key => $files) {
-					$data = $this->ngecurl($version[repository][files].$version[release][version]."/".$files);
-					if($data != ""){
-						if(unlink($files)){
-							$this->msg("[Update] [OK] Removes Files ".$files);
-						}
-						if( file_put_contents($files , $data) ){
-							$this->msg("[Update] [OK] Create files ".$files);
-							if($files == "desploits.php"){
-								chmod($files,755);
-							}
-						}else{
-							$this->msg("[Update] [FAIL] Create files ".$files);
-						}
-					}else{
-						$this->msg("Pleas Download : http://ekasyahwan.github.io/tools/desploits.php / https://github.com/ekasyahwan/desploits for manual download");
-						exit();
-					}
-				}
-			}
-			$this->msg("\r\n--------- thanks for updates Desploits ---------");
+			$desploits->msg("[Update] Done !!! please report it to us for the problems in these tools in our github page https://github.com/ekasyahwan/desploits");
 		}else{
-			$this->msg("no update");
+			$desploits->msg("[Update] no updates");
 		}
 	}
 }
 $desploit 	= new Desploit;
 $fadmin 	= new Fadmin;
 $wordpress	= new Wordpress;
-$md5		= new Md5;
-$engine 	= new Engine;
 /** call class package **/
 $desploit->Covers();
-$desploit->requiredDes();
 $command  = $desploit->arguments($argv);
 ?>

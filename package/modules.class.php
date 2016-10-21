@@ -4,24 +4,6 @@ class Modules
 	public function msg($msg){
 		echo "[desploits] ".$msg."\r\n";
 	}
-    public function osDetect(){
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            return 'windows';
-        } else {
-            return 'linux';
-        }
-    }
-    public function explodeDefault(){
-        if($this->osDetect()){
-            return "\r\n";
-        }else{
-            return "\n";
-        }
-    }
-    public function removespace($data){
-        $str =  preg_replace('/\s+/', '', $data );
-        return $str;
-    }
 	public function ngesave($name,$data){
 		$name = $name."-".date('dFY').".txt";
 		$myfile = fopen($name, "a+") or die("Tidak bisa membuka file!");
@@ -46,11 +28,11 @@ class Modules
                 curl_setopt($ch, CURLOPT_COOKIESESSION, true);
                 curl_setopt($ch, CURLOPT_VERBOSE, false);
                 $data           = curl_exec($ch);    
-                $header_size    = curl_getinfo($ch                  , CURLINFO_HEADER_SIZE);
-                $header         = substr($data                      , 0, $header_size);
-                $body           = substr($data                      , $header_size);
-                $ex             = explode($this->explodeDefault()   , $header); 
-                $xx             = curl_getinfo($ch                  , CURLINFO_EFFECTIVE_URL);
+                $header_size    = curl_getinfo($ch      , CURLINFO_HEADER_SIZE);
+                $header         = substr($data          , 0, $header_size);
+                $body           = substr($data          , $header_size);
+                $ex             = explode("\r\n"        , $header); 
+                $xx             = curl_getinfo($ch      , CURLINFO_EFFECTIVE_URL);
         if( $url != $xx){
         	$this->msg("[check] uRL : ".$xx." (new url)");
         }else{
@@ -58,8 +40,8 @@ class Modules
         }
         return $xx;
 	}
-    public function ngecurl($url , $post=null , $header=null){
-        $ch = curl_init($url);
+	public function ngecurl($url , $post=null){
+		$ch = curl_init($url);
         if($post != null) {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -69,18 +51,15 @@ class Modules
         curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd().'temp/'."cookies.txt");
         curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd().'temp/'."cookies.txt");
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        if($header != null) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER,$header);
-        }
         curl_setopt($ch, CURLOPT_COOKIESESSION, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,0); 
-        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+    	curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        return curl_exec($ch);
+    	return curl_exec($ch);
         curl_close($ch);
-    }
+	}
 	public function mod_httpcode($url){
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
@@ -132,7 +111,7 @@ class Modules
             exit();
         }
         $file = file_get_contents($files);
-        $file = explode($this->explodeDefault(),$file);
+        $file = explode("\r\n",$file);
         $file = array_unique($file);
         return $file;
     }
@@ -140,17 +119,17 @@ class Modules
         // usage : list,key
         $this->msg("[Remove] key ".$remove." remove from ".$files);
         $file = file_get_contents($files);
-        $file = explode($this->explodeDefault(), $file);
+        $file = explode("\r\n", $file);
         unset($file[$remove]);
-        $imp=implode($this->explodeDefault(),$file);
+        $imp=implode("\r\n",$file);
         $fp=fopen($files,'w');
         fwrite($fp,$imp);
         fclose($fp);
     }
     function Debug( $data ){
-        $myfile = fopen("debug.html", "w+") or die("Unable to open file!");
+        unlink("debug.html");
+        $myfile = fopen("debug.html", "a+") or die("Unable to open file!");
         fwrite($myfile, $data);
         fclose($myfile);
-        exit();
     }
 }
