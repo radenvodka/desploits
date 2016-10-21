@@ -167,8 +167,9 @@ class Engine extends Modules
 			}				
 		}
 		unlink("result/scraper-".date('dFY').".txt");
+		$input = $this->readline("Name file final result : ");
 		foreach (array_unique($urlarray) as $key => $url) {
-			$this->ngesave("result/scraper-final",$url."\r\n");
+			$this->save("result/".$input,$url."\r\n");
 		}
 	}
 	function scraper($dork , $opt=null){
