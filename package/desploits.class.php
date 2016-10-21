@@ -8,7 +8,7 @@ require_once("package/engine.class.php");
 class Desploit extends Modules
 {
 	function Config(){
-		$Desploit = array('ver' => '');
+		$Desploit = array('ver' => '1.0.3');
 		return $Desploit;
 	}
 	function requiredDes(){
