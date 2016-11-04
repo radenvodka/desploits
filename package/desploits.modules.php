@@ -1,2 +1,10 @@
 <?php
-// for function curl , stdin and other
+/**
+* 
+*/
+class DesploitsModules extends DesploitsStyle
+{
+	public function asdsad(){
+		
+	}
+}
