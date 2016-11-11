@@ -1,4 +1,10 @@
 <?php
+/**
+ * @Author: Desploits Developers
+ * @Date:   2016-11-10 20:02:13
+ * @Last Modified by:   Logika Galau
+ * @Last Modified time: 2016-11-10 20:22:19
+ */
 class DesploitsUpdate
 {
 	public function loadURL($var){
@@ -10,11 +16,6 @@ class DesploitsUpdate
 		$DesploitsConfig = new DesploitsConfig; 
 		//-------------------------------------------//
 		$DesploitsConfig->load("version");
-
-		
-
-
-
 	}
 }
 $DesploitsUpdate = new DesploitsUpdate;
