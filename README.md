@@ -35,15 +35,14 @@ Desploits - Web Application Vulnerability Scanners (WVS)
 | Name | position
 | --- | --- |
 | Eka Syahwan | Leader projects & Developer | 
+| Achmad Ismail | Vice Leader & Developer | 
 
-#Thank's
-+ x'1n73ct
-+ kefiex404
-+ Egar Rizki
-+ Rony Yahya
+# CREDITS
++ Desploits Team
++ Dracos Linux from Scratch Indonesia ( Awesome Penetration os ), you can see in http://dracos-linux.org/.
 
-# *Support Desploits*
-Thank's for [Star] (https://github.com/ekasyahwan/desploits/stargazers) , [Watch] (https://github.com/ekasyahwan/desploits/watchers) , [Fork] (https://github.com/ekasyahwan/desploits/network) , and [Follow] (https://github.com/ekasyahwan) ^_^.
+# SUPPORT
+[INDONESIA] Desploits telah menjadi bagian tools pada Dracos Linux (www.dracos-linux.org) , perkembangan tools desploits ini merupakan dukungan dari Dracos Linux dan bantuan dari tim dev dari dracos linux
 
 # Issues 
 > Please report this problem through the issue page [Create New Issue] (https://github.com/ekasyahwan/desploits/issues)
