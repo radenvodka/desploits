@@ -3,15 +3,13 @@
  * @Author: Desploits Developers
  * @Date:   2016-11-10 19:58:10
  * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2016-11-13 23:01:29
+ * @Last Modified time: 2016-11-14 01:47:56
  */
 
 /** Package **/
 require_once("package/desploits.update.php");
 require_once("package/desploits.config.php");
 require_once("package/desploits.modules.php");
-
-
 class DesploitsLoad
 {
 	public function DesploitsCovers()
@@ -33,7 +31,9 @@ class DesploitsLoad
  		echo " Example: php desploits.php {tools} --run\r\n";
  		echo " Usage  : {tools} --run\r\n\n";
         echo " Tools  : - adminfinder\r\n";
-        echo "          - adminfinder\r\n";
+        echo "          - shellfinder\r\n";
+        echo "          - portscanner\r\n";
+        echo "          - md5cracker\r\n";
         echo "\n";
 	}
 	public function arguments($argv) { 
@@ -65,3 +65,18 @@ if($Command[input][1] == "adminfinder" && $Command[input][2] == "--run"){
 	require_once("tools/tools.load.php");
 	$AdminFinder->run();
 }
+if($Command[input][1] == "portscanner" && $Command[input][2] == "--run"){
+	require_once("tools/tools.load.php");
+	$Portscanner->run();
+}
+if($Command[input][1] == "md5cracker" && $Command[input][2] == "--run"){
+	require_once("tools/tools.load.php");
+	$Md5Cracker->run();
+}
+if($Command[input][1] == "shellfinder" && $Command[input][2] == "--run"){
+	require_once("tools/tools.load.php");
+	$Shellfinder->run();
+}
+
+require_once("tools/tools.load.php");
+$Dorking->run();
