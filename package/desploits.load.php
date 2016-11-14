@@ -2,9 +2,11 @@
 /**
  * @Author: Desploits Developers
  * @Date:   2016-11-10 19:58:10
- * @Last Modified by:   Logika Galau
- * @Last Modified time: 2016-11-10 20:59:04
+ * @Last Modified by:   Eka Syahwan
+ * @Last Modified time: 2016-11-13 23:01:29
  */
+
+/** Package **/
 require_once("package/desploits.update.php");
 require_once("package/desploits.config.php");
 require_once("package/desploits.modules.php");
@@ -18,10 +20,21 @@ class DesploitsLoad
 		echo "   _| |___ ___ ___| |___|_| |_ ___   ".DesploitsConfig::load("version")."	\r\n";
 		echo "  | . | -_|_ -| . | | . | |  _|_ -|  		\r\n";
 		echo "  |___|___|___|  _|_|___|_|_| |___|  		\r\n";
-		echo "              |_|                    		\r\n";
+		echo "              |_|                   --help\r\n";
 		echo "  --------------------------------------  \r\n";
 		echo "  Web Application Vulnerability Scanners  \r\n";
 		echo "  --------------------------------------  \r\n\n";
+	}
+	public function DesploitsHelp()
+	{
+		$tools = array(
+			'',
+		);
+ 		echo " Example: php desploits.php {tools} --run\r\n";
+ 		echo " Usage  : {tools} --run\r\n\n";
+        echo " Tools  : - adminfinder\r\n";
+        echo "          - adminfinder\r\n";
+        echo "\n";
 	}
 	public function arguments($argv) { 
 		    $_ARG = array(); 
@@ -43,20 +56,12 @@ $DesploitsModules 	= new DesploitsModules;
 $Command 			= $DesploitsLoad->arguments($argv);
 $DesploitsLoad->DesploitsCovers();
 
+/** Command List **/
+if($Command[input][1] == "--help"){
+	$DesploitsLoad->DesploitsHelp();
+}
 
-
-// Class test //--
-//print_r($DesploitsModules->loadfile($Command[input][1])); // command load file
-
-/*
-$sdataCustom = array( // command example postdata with curl and custom data 
-	'post' => array(
-		'username' => 'test',
-		'password' => 'test123',
-	),
-	'rto'  => 30,
-	'uagent' => 'msnbot/1.0 (+http://search.msn.com/msnbot.htm)',
-	'header' => array('asjsj','asjsj','asjsj','asjsj')
-);
-$DesploitsModules->sdata("http://google.com" , $sdataCustom );
-*/
+if($Command[input][1] == "adminfinder" && $Command[input][2] == "--run"){
+	require_once("tools/tools.load.php");
+	$AdminFinder->run();
+}
