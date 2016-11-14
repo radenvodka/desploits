@@ -3,13 +3,13 @@
  * @Author: Desploits Developers
  * @Date:   2016-11-10 20:01:02
  * @Last Modified by:   Logika Galau
- * @Last Modified time: 2016-11-10 21:11:16
+ * @Last Modified time: 2016-11-13 22:08:25
  */
 class DesploitsModules 
 {
 	public function checkOS(){
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-			return true; // is 	Windows
+			return true; // is Windows
 		} else {
 			return false; // is Linux
 		}
@@ -21,15 +21,18 @@ class DesploitsModules
 		}
 	}
 	public function delimiter($data){
-		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-			$delimiter = "\r\n";
-		} else {
-			$delimiter = "\n";
-		}
-		return explode($delimiter, $data);
-	}
+                if( $this->checkOS() ){
+                        $delimiter = "\r\n"; 
+                }else{
+                        $delimiter = "\n";
+                }
+                return explode($delimiter, $data);
+        }
+        public function customdelimiter($data,$delimiter){
+                return explode($delimiter, $data);
+        }
 	public function loadfile($files){
-		$this->checkFile($files); // check Files
+		$this->checkFile($files);
 		$file = file_get_contents($files);
 		$data = $this->delimiter($file);
 		return array(
@@ -37,7 +40,24 @@ class DesploitsModules
 			'data'  => $data
 		);
 	}
-	public function sdata($url , $custom){
+        public function customloadfile($files,$delimiter){
+                $this->checkFile($files);
+                $file = file_get_contents($files);
+                $data = $this->customdelimiter($file,$delimiter);           
+                return array(
+                        'total' => count($data),
+                        'data'  => $data
+                );
+        }
+        public function stuck($msg){
+                echo $msg;
+                $answer =  rtrim( fgets( STDIN ));
+                return $answer;
+        }
+	public function sdata($url , $custom , $delCookies = null){
+                if($delCookies != null){
+                        unlink("cookies.txt");
+                }
         	$ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_HEADER, false);
@@ -74,10 +94,25 @@ class DesploitsModules
                 $data           = curl_exec($ch);
                 $httpcode       = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                 curl_close($ch);
-                //print_r($custom);
                 return array(
                 	'data' 		=> $data,
                 	'httpcode' 	=> $httpcode, 
                 );
 	}
+        //*** format saves ***//
+        public function saves($data,$name){
+                mkdir("report");
+                $fdo = fopen($name , "a+");
+                if(!$fdo) die("Can't open files");
+                fwrite($fdo, $data);
+                fclose($fdo);
+                return $name;
+        }
+        public function saveHTML($uRL,$name){
+                $format = '<a href="'.$uRL.'" target="_blank">'.$uRL.'</a><br>';
+                $this->saves($format,$name.".html");
+        }
+        public function savehypertext($uRL,$name){
+                return $this->saves($uRL,$name.".txt");
+        }
 }
