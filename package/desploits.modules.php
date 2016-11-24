@@ -2,8 +2,8 @@
 /**
  * @Author: Desploits Developers
  * @Date:   2016-11-10 20:01:02
- * @Last Modified by:   Logika Galau
- * @Last Modified time: 2016-11-13 22:08:25
+ * @Last Modified by:   Eka Syahwan
+ * @Last Modified time: 2016-11-18 17:59:00
  */
 class DesploitsModules 
 {
@@ -99,6 +99,10 @@ class DesploitsModules
                 	'httpcode' 	=> $httpcode, 
                 );
 	}
+        public function debug($data){
+                unlink("debug.html");
+                $this->saves($data,"debug.html");
+        }
         //*** format saves ***//
         public function saves($data,$name){
                 mkdir("report");

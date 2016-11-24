@@ -87,7 +87,7 @@ __________                         .__
 	}
 
 	protected function CreateShell(){
-                $dir_location =  "database/bunglonshell/";
+        $dir_location =  "database/bunglonshell/";
 		$filename = $this->filename;
                 $return = '';
 		if(!file_exists($dir_location.$filename)){
@@ -153,7 +153,7 @@ __________                         .__
 		$req=$this->stuck("[?] pilih salah satu (1/2) : ");
 		if($req == 1){
 			$this->CreateShell();
-                        $this->run();
+            $this->run();
 		}else if($req == 2){
 			$this->data['url']=$this->stuck("[?] Link Shell : ");
 			$this->data['data']['password']=$this->stuck("[?] Password : ");
