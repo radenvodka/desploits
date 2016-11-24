@@ -8,6 +8,8 @@
 require_once("tools/class.adminfinder.php");
 require_once("tools/class.portscanner.php");
 require_once("tools/class.md5cracker.php");
+require_once("tools/class.bunglonshell.php");
 $AdminFinder = new AdminFinder;
 $Portscanner = new Portscanner;
 $Md5Cracker = new Md5Cracker;
+$Bunglonshell = new Bunglonshell;

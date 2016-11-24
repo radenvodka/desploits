@@ -34,6 +34,7 @@ class DesploitsLoad
         echo "          - shellfinder\r\n";
         echo "          - portscanner\r\n";
         echo "          - md5cracker\r\n";
+        echo "          - bunglonshell\r\n";
         echo "\n";
 	}
 	public function arguments($argv) { 
@@ -53,7 +54,7 @@ class DesploitsLoad
 $DesploitsLoad 		= new DesploitsLoad;
 $DesploitsConfig 	= new DesploitsConfig;
 $DesploitsModules 	= new DesploitsModules;
-$Command 			= $DesploitsLoad->arguments($argv);
+$Command 		= $DesploitsLoad->arguments($argv);
 $DesploitsLoad->DesploitsCovers();
 
 /** Command List **/
@@ -77,6 +78,10 @@ if($Command[input][1] == "shellfinder" && $Command[input][2] == "--run"){
 	require_once("tools/tools.load.php");
 	$Shellfinder->run();
 }
+if($Command[input][1] == "bunglonshell" && $Command[input][2] == "--run"){
+	require_once("tools/tools.load.php");
+	$Bunglonshell->run();
+}
 
-require_once("tools/tools.load.php");
-$Dorking->run();
+//require_once("tools/tools.load.php");
+//$Dorking->run();
