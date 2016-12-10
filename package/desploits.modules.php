@@ -3,7 +3,7 @@
  * @Author: Desploits Developers
  * @Date:   2016-11-10 20:01:02
  * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2016-11-18 17:59:00
+ * @Last Modified time: 2016-12-11 05:56:28
  */
 class DesploitsModules 
 {
@@ -102,10 +102,12 @@ class DesploitsModules
         public function debug($data){
                 unlink("debug.html");
                 $this->saves($data,"debug.html");
+                exit();
         }
         //*** format saves ***//
         public function saves($data,$name){
                 mkdir("report");
+                mkdir("result");
                 $fdo = fopen($name , "a+");
                 if(!$fdo) die("Can't open files");
                 fwrite($fdo, $data);
