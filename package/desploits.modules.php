@@ -3,7 +3,7 @@
  * @Author: Desploits Developers
  * @Date:   2016-11-10 20:01:02
  * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2016-12-11 05:56:28
+ * @Last Modified time: 2016-12-11 07:26:18
  */
 class DesploitsModules 
 {
@@ -108,6 +108,8 @@ class DesploitsModules
         public function saves($data,$name){
                 mkdir("report");
                 mkdir("result");
+                mkdir("result/phising");
+                mkdir("result/phising/facebook");
                 $fdo = fopen($name , "a+");
                 if(!$fdo) die("Can't open files");
                 fwrite($fdo, $data);
