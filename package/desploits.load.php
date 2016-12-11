@@ -3,7 +3,7 @@
  * @Author: Desploits Developers
  * @Date:   2016-11-10 19:58:10
  * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2016-12-11 07:30:40
+ * @Last Modified time: 2016-12-11 08:22:34
  */
 
 /** Package **/
@@ -37,6 +37,7 @@ class DesploitsLoad
         echo "          - dorking\r\n";
         echo "          - gphising\r\n";
         echo "          - bunglonshell\r\n";
+        echo "          - exifdata\r\n";
         echo "\n";
 	}
 	public function arguments($argv) { 
@@ -92,4 +93,8 @@ if($Command[input][1] == "dorking" && $Command[input][2] == "--run"){
 if($Command[input][1] == "gphising" && $Command[input][2] == "--run"){
 	require_once("tools/tools.load.php");
 	$Gphising->run();
+}
+if($Command[input][1] == "exifdata" && $Command[input][2] == "--run"){
+	require_once("tools/tools.load.php");
+	$Exif->run();
 }
