@@ -3,7 +3,7 @@
  * @Author: Desploits Developers
  * @Date:   2016-11-10 19:58:10
  * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2016-12-11 08:22:34
+ * @Last Modified time: 2016-12-15 13:31:51
  */
 
 /** Package **/
@@ -98,3 +98,7 @@ if($Command[input][1] == "exifdata" && $Command[input][2] == "--run"){
 	require_once("tools/tools.load.php");
 	$Exif->run();
 }
+
+
+require_once("tools/tools.load.php");
+$Logsanalyzer->run();
