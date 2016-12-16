@@ -54,9 +54,9 @@ class Desploit extends Modules
 	function arguments($argv) { 
 		    $_ARG = array(); 
 		    foreach ($argv as $arg) { 
-		      if (ereg('--([^=]+)=(.*)',$arg,$reg)) { 
+		      if (preg_match('/--([^=]+)=(.*)/',$arg,$reg)) { 
 		        $_ARG[$reg[1]] = $reg[2]; 
-		      } elseif(ereg('^-([a-zA-Z0-9])',$arg,$reg)) { 
+		      } elseif(preg_match('/^-([a-zA-Z0-9])/',$arg,$reg)) { 
 		            $_ARG[$reg[1]] = 'true'; 
 		      } else { 
 		            $_ARG['input'][]=$arg; 
