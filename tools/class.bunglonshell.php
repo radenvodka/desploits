@@ -150,7 +150,7 @@ __________                         .__
 		$question1 ="[1] Create Shell \n";
 		$question1 .="[2] Remote Shell \n";
 		echo $question1;
-		$req=$this->stuck("[?] pilih salah satu (1/2) : ");
+		$req=$this->stuck("[?] pleas select number (1/2) : ");
 		if($req == 1){
 			$this->CreateShell();
             $this->run();
