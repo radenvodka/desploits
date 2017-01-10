@@ -3,7 +3,7 @@
  * @Author: Desploits Developers
  * @Date:   2016-11-10 19:58:10
  * @Last Modified by:   Eka Syahwan
- * @Last Modified time: 2016-12-15 13:31:51
+ * @Last Modified time: 2017-01-10 21:41:02
  */
 
 /** Package **/
@@ -38,6 +38,7 @@ class DesploitsLoad
         echo "          - gphising\r\n";
         echo "          - bunglonshell\r\n";
         echo "          - exifdata\r\n";
+        echo "          - logsanalyzer\r\n";
         echo "\n";
 	}
 	public function arguments($argv) { 
@@ -98,7 +99,7 @@ if($Command[input][1] == "exifdata" && $Command[input][2] == "--run"){
 	require_once("tools/tools.load.php");
 	$Exif->run();
 }
-
-
-require_once("tools/tools.load.php");
-$Logsanalyzer->run();
+if($Command[input][1] == "logsanalyzer" && $Command[input][2] == "--run"){
+	require_once("tools/tools.load.php");
+	$Logsanalyzer->run();
+}
