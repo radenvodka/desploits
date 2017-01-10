@@ -1,5 +1,5 @@
 # Welcome to the project desploits
-Desploits - Web Application Vulnerability Scanners (WVS) 
+Desploits - PHP framework for penetration testing
 
 #How to install and run desploits ?
 1. `git clone git://github.com/ekasyahwan/desploits.git` / download in table [Download Desploits] (https://github.com/ekasyahwan/desploits#download-desploits)
