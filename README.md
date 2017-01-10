@@ -1,5 +1,9 @@
 # Welcome to the project desploits
-Desploits - PHP framework for penetration testing
+Desploits - PHP framework for penetration testing.
+
+# What is Desploits ? 
+Desploits is a php framework to test a system. In desploits there are many
+Tool - The tool will help you to test the system include admin and shell findder, md5cracker, wpbrute force and others.
 
 #How to install and run desploits ?
 1. `git clone git://github.com/ekasyahwan/desploits.git` / download in table [Download Desploits] (https://github.com/ekasyahwan/desploits#download-desploits)
